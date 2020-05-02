@@ -1,0 +1,6 @@
+sed -i 's/gao/ção/g' *
+sed -i 's/ao/ão/g' *
+sed -i 's/ ão/ao/g' *
+sed -i 's/&/ã/g' *
+sed -i 's/¢G/õe/g' *
+

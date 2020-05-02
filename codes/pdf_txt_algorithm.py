@@ -14,11 +14,9 @@ from wand.image import Image as wi
 
 
 def pdfToTxt(filename):
-	''' this function 
-
-	'''
 	print('Extracting {}'.format(filename))
 	print('WARNING: Corrupted text on file may retrive errors during extraction')
+
 	# open image 
 	filename = filename[0:-4]
 	pdfFile = wi(filename = 'data/{}.pdf'.format(filename), resolution = 300)
@@ -37,15 +35,16 @@ def pdfToTxt(filename):
 		text = pytesseract.image_to_string(image, lang = 'eng')
 		extract += text
 
+	# save as text file
 	file = open('data/text/{}.txt'.format(filename), 'w')
 	file.write(extract)
 	file.close()
 
 
 # list files in directory
-files = os.listdir('data/.')
+files = os.listdir('data/.')[0:3]
 
-# extract and save 
+# if pdf, extract and save 
 for file in files:
 	if file[-4:] == '.pdf':
 		pdfToTxt(file)
