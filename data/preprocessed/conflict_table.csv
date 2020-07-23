@@ -4,7 +4,6 @@
 123,18,13,"t_cat_cooperacao","meeting_06",15110,15286,176
 186,57,12,"t_cat_conflito","meeting_05",4126,7915,3789
 215,18,1,"t_cat_cooperacao","meeting_08",2331,3409,1078
-225,57,1,"t_cat_conflito","meeting_08",9728,13816,4088
 231,18,2,"t_cat_cooperacao","meeting_09",1268,1610,342
 232,18,2,"t_cat_cooperacao","meeting_09",2841,4235,1394
 252,18,16,"t_cat_cooperacao","meeting_11",3061,3509,448
@@ -110,3 +109,12 @@
 2349,57,50,"t_cat_conflito","meeting_28",18722,22966,4244
 2427,57,52,"t_cat_conflito","meeting_29",2558,2913,355
 2437,57,52,"t_cat_conflito","meeting_29",7607,7843,236
+2546,18,53,"t_cat_cooperacao","meeting_30",2055,30635,28580
+2598,18,51,"t_cat_cooperacao","meeting_31",1674,3738,2064
+2689,57,1,"t_cat_conflito","meeting_08",7989,13816,5827
+2698,18,1,"t_cat_cooperacao","meeting_08",18659,18856,197
+2750,18,31,"t_cat_cooperacao","meeting_12",20354,20663,309
+2773,57,3,"t_cat_conflito","meeting_18",10633,10776,143
+2786,57,3,"t_cat_conflito","meeting_18",8875,9364,489
+2844,57,21,"t_cat_conflito","meeting_22",8238,8414,176
+2846,57,21,"t_cat_conflito","meeting_22",10313,10467,154
