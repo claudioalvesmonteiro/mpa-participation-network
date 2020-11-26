@@ -15,8 +15,18 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # import data
-counselor_data = pd.read_csv('data/preprocessed/council_table.csv', sep=',')
-category_data = pd.read_csv('data/preprocessed/conflict_table.csv')
+counselor_data = pd.read_csv('data/preprocessed/council_table.csv', sep=',', encoding='latin1')
+category_data = pd.read_csv('data/preprocessed/conflict_coop_table.csv')
+
+#===========================
+# preprocessing
+#===========================
+
+# remove goverment workers from APACC management
+
+counselor_data = counselor_data[counselor_data['entidade_sigla']!='ICMBIO']
+
+
 
 #========================================
 # functions to build network dataframe
@@ -42,7 +52,7 @@ def combinationDict(categories, n_combination):
     # return data
     return data_dict
 
-category = 't_cat_conflito'
+
 
 def searchAssociation(category, category_info, counselor_info, combinations):
     ''' function to measure the degree of association between sectors
@@ -95,16 +105,29 @@ def isInThreshold(list_x, list_y):
 combinations = combinationDict(counselor_data.categoria1.unique(), 2)
 
 # execute search 
-combination_results = searchAssociation('t_cat_conflito', category_data, counselor_data, combinations)
+combination_results = searchAssociation('t_cat_cooperacao', category_data, counselor_data, combinations)
 
 # Build a dataframe with your connections
 combination_results = pd.DataFrame(combination_results)
-    
+
+def rename_(col):
+    col[col == 'Gestão Pública'] = 'Government'
+    col[col == 'ONGs Ambientalistas'] = 'NGOs'
+    col[col == 'Agricultura, Indústria e Comércio'] = 'Industry'
+    col[col == 'Atividade Pesqueira'] = 'Fishers'
+    col[col == 'Atividade Turística'] = 'Tourism'
+    col[col == 'Instituição de Ensino e Pesquisa'] = 'Research'
+    col[col == 'Organizações de educação e cultura e associações comunitárias'] = 'Community Org'
+    return col
+
+combination_results['net_from'] = rename_(combination_results['net_from'])
+combination_results['net_to'] = rename_(combination_results['net_to'])
+
 # Build your graph
 G = nx.from_pandas_edgelist(combination_results, 'net_from', 'net_to', create_using=nx.Graph() )
     
 # Custom the nodes:
-nx.draw(G, with_labels=True, node_color='skyblue', node_size=1500,edge_color=combination_results['count'], width=10.0, edge_cmap=plt.cm.Blues)
+nx.draw(G, with_labels=True, node_color='skyblue', node_size=1000,edge_color=combination_results['count'], width=7.0)#, edge_cmap=plt.cm.Blues)
 
 # show
 plt.show()
