@@ -126,8 +126,10 @@ dataGrupo <- mutate(dataGrupo, proporcao_total_label = paste0(proporcao_total,"%
 colnames(dataGrupo)[2] <- "situacoes_de_fala"
 dataGrupo$UC <- "APA Costa dos Corais"
 
+dataGrupo$sector_group = c('Agriculture and Industry', 'Fishing', 'Tourism', 'Public Government', 'Research Institutions', 'Environmental NGOs', 'Local Associations')
+
 # ordenar
-dataGrupo$grupo_setorial <- factor(dataGrupo$grupo_setorial, levels = dataGrupo$grupo_setorial[order(dataGrupo$prop_assento)])
+dataGrupo$sector_group <- factor(dataGrupo$sector_group, levels = dataGrupo$sector_group[order(dataGrupo$prop_assento)])
 
 #inserir categorias
 dataGrupo$categoria_inst <- c("Sociedade Civil", "Sociedade Civil","Poder Público", "Poder Público",
@@ -137,20 +139,21 @@ dataGrupo$categoria_inst <- c("Sociedade Civil", "Sociedade Civil","Poder Públi
 write.csv(dataGrupo, "results/apa_fala_data.csv", row.names = F)
 
 
-ggplot(dataGrupo, aes(x = grupo_setorial, y = prop_assento ))+
+ggplot(dataGrupo, aes(x = sector_group, y = prop_assento ))+
   geom_bar(stat = "identity") +
-  geom_label(aes(x = grupo_setorial, y = prop_assento , label = prop_assento ), size = 2.5)+
+  geom_label(aes( label = prop_assento ), size = 2.5)+
   labs(y = "Participation Index", x = "", title = "") +
   coord_flip()+
   theme_minimal()%+replace% 
   theme(legend.position="bottom")
+
 ggsave("prop_voz_cat.png", path = "results", width = 8, height = 3, units = "in")
 
 
 
-dataGrupo$grupo_setorial <- factor(dataGrupo$grupo_setorial, levels = dataGrupo$grupo_setorial[order(dataGrupo$proporcao_total)])
+dataGrupo$sector_group <- factor(dataGrupo$sector_group, levels = dataGrupo$sector_group[order(dataGrupo$proporcao_total)])
 
-ggplot(dataGrupo, aes(x = grupo_setorial, y = proporcao_total ))+
+ggplot(dataGrupo, aes(x = sector_group, y = proporcao_total ))+
   geom_bar(stat = "identity") +
   geom_label(aes(label = proporcao_total ), size = 2.5)+
   labs(y = "Total Participation", x = "", title = "") +
