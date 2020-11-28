@@ -126,7 +126,7 @@ dataGrupo <- mutate(dataGrupo, proporcao_total_label = paste0(proporcao_total,"%
 colnames(dataGrupo)[2] <- "situacoes_de_fala"
 dataGrupo$UC <- "APA Costa dos Corais"
 
-dataGrupo$sector_group = c('Agriculture and Industry', 'Fishing', 'Tourism', 'Public Government', 'Research Institutions', 'Environmental NGOs', 'Local Associations')
+dataGrupo$sector_group = c('Agriculture and Industry', 'Fishery', 'Tourism', 'Public Government', 'Research Institutions', 'Environmental NGOs', 'Local Associations')
 
 # ordenar
 dataGrupo$sector_group <- factor(dataGrupo$sector_group, levels = dataGrupo$sector_group[order(dataGrupo$prop_assento)])

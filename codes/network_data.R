@@ -31,14 +31,14 @@ cleanString <- function(string){
 }
 
 insti$codename <- cleanString(paste0(insti$nome_consel,'_',insti$entidade_sigla))
-cont_cod_data$codename <- cleanString(cont_cod_data$Var1)
 
 ###########
 
 
-# visualizar a contagem de cada codigo
+# contagem de cada codigo
 sumario_cod <- summaryCodings()
 cont_cod_data <- data.frame(sumario_cod$NumOfCoding)
+cont_cod_data$codename <- cleanString(cont_cod_data$Var1)
 
 # merge to verify
 cont_insti = merge(cont_cod_data, insti, by='codename', all.x = T)

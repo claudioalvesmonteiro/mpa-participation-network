@@ -105,29 +105,37 @@ def isInThreshold(list_x, list_y):
 combinations = combinationDict(counselor_data.categoria1.unique(), 2)
 
 # execute search 
-combination_results = searchAssociation('t_cat_cooperacao', category_data, counselor_data, combinations)
+combination_results = searchAssociation('t_cat_conflito', category_data, counselor_data, combinations)
 
 # Build a dataframe with your connections
 combination_results = pd.DataFrame(combination_results)
 
 def rename_(col):
-    col[col == 'Gestão Pública'] = 'Government'
-    col[col == 'ONGs Ambientalistas'] = 'NGOs'
-    col[col == 'Agricultura, Indústria e Comércio'] = 'Industry'
-    col[col == 'Atividade Pesqueira'] = 'Fishers'
+    col[col == 'Gestão Pública'] = 'Public Gov'
+    col[col == 'ONGs Ambientalistas'] = 'Environmental NGOs'
+    col[col == 'Agricultura, Indústria e Comércio'] = 'Agriculture and Industry'
+    col[col == 'Atividade Pesqueira'] = 'Fishery'
     col[col == 'Atividade Turística'] = 'Tourism'
-    col[col == 'Instituição de Ensino e Pesquisa'] = 'Research'
-    col[col == 'Organizações de educação e cultura e associações comunitárias'] = 'Community Org'
+    col[col == 'Instituição de Ensino e Pesquisa'] = 'Research Inst.'
+    col[col == 'Organizações de educação e cultura e associações comunitárias'] = 'Local Associations'
     return col
 
 combination_results['net_from'] = rename_(combination_results['net_from'])
 combination_results['net_to'] = rename_(combination_results['net_to'])
 
+# filter out 'local associations' and 'agriculture and industry'
+combination_results = combination_results[(combination_results.net_from != 'Local Associations') & (combination_results.net_from != 'Agriculture and Industry')]
+combination_results = combination_results[(combination_results.net_to != 'Local Associations') & (combination_results.net_to != 'Agriculture and Industry')]
+
 # Build your graph
 G = nx.from_pandas_edgelist(combination_results, 'net_from', 'net_to', create_using=nx.Graph() )
     
 # Custom the nodes:
-nx.draw(G, with_labels=True, node_color='skyblue', node_size=1000,edge_color=combination_results['count'], width=7.0)#, edge_cmap=plt.cm.Blues)
+nx.draw(G, with_labels=True, 
+            node_color='skyblue', 
+            node_size=2000,
+            edge_color=combination_results['count'], 
+            width=5.0, edge_cmap=plt.cm.Blues)
 
 # show
 plt.show()
