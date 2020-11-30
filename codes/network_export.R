@@ -18,7 +18,17 @@ library(readr)
 RQDA()
 
 
-# importar base de conselheiros
+install.packages(c("gWidgets", "gWidgetsRGtk2", "RGtk2", "igraph","plogr","bit","RSQLite"),depen=T)
+
+update.packages(ask = FALSE, checkBuilt = TRUE)
+
+library(RGtk2)
+
+install.packages("https://cran.r-project.org/src/contrib/Archive/RQDA/RQDA_0.3-1.tar.gz", type = "source", INSTALL_opts = "--no-multiarch")
+
+update.packages(ask = FALSE, checkBuilt = TRUE)
+
+#importar base de conselheiros
 insti <- read_csv("data/preprocessed/consel_instituicoes.csv")
 
 # function to standardize string
