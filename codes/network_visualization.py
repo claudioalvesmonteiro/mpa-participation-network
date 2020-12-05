@@ -127,6 +127,8 @@ combination_results['net_to'] = rename_(combination_results['net_to'])
 combination_results = combination_results[(combination_results.net_from != 'Local Associations') & (combination_results.net_from != 'Agriculture and Industry')]
 combination_results = combination_results[(combination_results.net_to != 'Local Associations') & (combination_results.net_to != 'Agriculture and Industry')]
 
+combination_results
+
 # Build your graph
 G = nx.from_pandas_edgelist(combination_results, 'net_from', 'net_to', create_using=nx.Graph() )
     
