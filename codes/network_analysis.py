@@ -105,7 +105,7 @@ def isInThreshold(list_x, list_y):
 combinations = combinationDict(counselor_data.categoria1.unique(), 2)
 
 # execute search 
-combination_results = searchAssociation('t_cat_conflito', category_data, counselor_data, combinations)
+combination_results = searchAssociation('t_cat_cooperacao', category_data, counselor_data, combinations)
 
 # Build a dataframe with your connections
 combination_results = pd.DataFrame(combination_results)
@@ -127,7 +127,7 @@ combination_results['net_to'] = rename_(combination_results['net_to'])
 combination_results = combination_results[(combination_results.net_from != 'Local Associations') & (combination_results.net_from != 'Agriculture and Industry')]
 combination_results = combination_results[(combination_results.net_to != 'Local Associations') & (combination_results.net_to != 'Agriculture and Industry')]
 
-combination_results
+combination_results.sort_values('level', ascending=False)
 
 # Build your graph
 G = nx.from_pandas_edgelist(combination_results, 'net_from', 'net_to', create_using=nx.Graph() )
@@ -136,8 +136,8 @@ G = nx.from_pandas_edgelist(combination_results, 'net_from', 'net_to', create_us
 nx.draw(G, with_labels=True, 
             node_color='skyblue', 
             node_size=2000,
-            edge_color=combination_results['count'], 
-            width=5.0, edge_cmap=plt.cm.Blues)
+            edge_color=combination_results['level'], 
+            width=5.0, edge_cmap=plt.get_cmap('Blues_r'))
 
 # show
 plt.show()
