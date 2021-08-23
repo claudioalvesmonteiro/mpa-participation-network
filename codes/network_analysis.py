@@ -105,7 +105,7 @@ def isInThreshold(list_x, list_y):
 combinations = combinationDict(counselor_data.categoria1.unique(), 2)
 
 # execute search 
-combination_results = searchAssociation('t_cat_cooperacao', category_data, counselor_data, combinations)
+combination_results = searchAssociation('t_cat_conflito', category_data, counselor_data, combinations)
 
 # Build a dataframe with your connections
 combination_results = pd.DataFrame(combination_results)
@@ -137,7 +137,7 @@ nx.draw(G, with_labels=True,
             node_color='skyblue', 
             node_size=2000,
             edge_color=combination_results['level'], 
-            width=5.0, edge_cmap=plt.get_cmap('Blues_r'))
+            width=5.0, edge_cmap=plt.get_cmap('Blues'))
 
 # show
 plt.show()
